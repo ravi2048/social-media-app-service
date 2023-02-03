@@ -6,6 +6,8 @@ const usersRoutes = require('./routes/users');
 const postsRoutes = require('./routes/posts');
 const likesRoutes = require('./routes/likes');
 const commentsRoutes = require('./routes/comments');
+const config = require('./config');
+require('dotenv').config();
 
 const app = express();
 // middlewares
@@ -17,7 +19,7 @@ app.use((req, res, next) => {
 })
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3001'
 }));
 app.use(cookieParser());
 
@@ -30,5 +32,5 @@ app.use("/comments", commentsRoutes);
 
 const port = 8800;
 app.listen(port, () => {
-    console.log(`****** backend started *********`);
+    console.log(`****** backend started on port ${port} *********`);
 });
