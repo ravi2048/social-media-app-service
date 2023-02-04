@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            userId: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
             createdAt: {
                 type: Sequelize.BIGINT,
                 allowNull: false,

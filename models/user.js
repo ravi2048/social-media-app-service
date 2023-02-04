@@ -62,7 +62,7 @@ module.exports = (sequelize, Sequelize) => {
         User.hasMany(models.Post);
         User.hasMany(models.Like);
         User.hasMany(models.Comment);
-        User.hasMany(models.Relationship);
+        User.hasMany(models.Relationship, {as: 'relationships'});
         User.hasMany(models.Story);
     }
     return User;

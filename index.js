@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 })
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3001'
+    origin: config.REACT_APP_URL
 }));
 app.use(cookieParser());
 
@@ -30,7 +30,7 @@ app.use("/posts", postsRoutes);
 app.use("/likes", likesRoutes);
 app.use("/comments", commentsRoutes);
 
-const port = 8800;
+const port = config.PORT;
 app.listen(port, () => {
     console.log(`****** backend started on port ${port} *********`);
 });

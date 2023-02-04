@@ -10,14 +10,14 @@ module.exports = (sequelize, Sequelize) => {
                 primaryKey: true,
                 autoIncrement: true
             },
-            followerUserId: {
+            userId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            followedUserId: {
+            friendId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-            },
+            }
         },
         {
             sequelize,
@@ -31,18 +31,10 @@ module.exports = (sequelize, Sequelize) => {
     Relationship.associate = function(models){
         Relationship.belongsTo(models.User, {
             foreignKey: {
-                name: 'followerUserId',
+                name: 'userId',
                 allowNull: false
             },
-            as: 'follower'
-        });
-
-        Relationship.belongsTo(models.User, {
-            foreignKey: {
-                name: 'followedUserId',
-                allowNull: false
-            },
-            as: 'followed'
+            as: 'relationships'
         });
     }
 
