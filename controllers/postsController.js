@@ -1,5 +1,7 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
+const moment = require("moment/moment");
+const { now } = require("moment/moment");
 require('dotenv').config();
 
 const postsController = {
@@ -42,10 +44,44 @@ const postsController = {
                         model: db.User,
                         as: "user",
                     }
+                ],
+                order: [
+                    ['createdAt', 'DESC']
                 ]
             });
 
             res.status(200).json(allPosts);
+        } catch (error) {
+            return res.status(500).json({
+                "error": error.message
+            });
+        }        
+    },
+
+    createPost: async (req, res) => {
+        try {
+            const token = req.cookies.accessToken;
+            let loggedInUserId = null;
+            if(!token) {
+                return res.status(401).json("Not logged in");
+            }
+
+            jwt.verify(token, "secretKey", (err, userInfo) => {
+                if(err) {
+                    return res.status(403).json("Token is not valid");
+                }
+                loggedInUserId = userInfo.id;
+            })
+
+            // if logged in, create post
+            const newPost = await db.Post.create({
+                desc: req.body.desc,
+                img: req.body.img,
+                userId: loggedInUserId,
+                createdAt: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+            });
+
+            res.status(200).json('Post created successfully');
         } catch (error) {
             return res.status(500).json({
                 "error": error.message
