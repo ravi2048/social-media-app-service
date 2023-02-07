@@ -4,6 +4,7 @@ const likesController = require('../controllers/likesController');
 
 const router = express.Router();
 
-router.get("/likes/:likeId", likesController.getLike);
+router.get("/:postId", likesController.getLikes);
+router.post("/:postId", likesController.addLike);
 
 module.exports = router;
