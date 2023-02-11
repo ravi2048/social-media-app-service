@@ -45,8 +45,8 @@ module.exports = (sequelize, Sequelize) => {
             },
             as: 'user'
         });
-        Post.hasMany(models.Like);
-        Post.hasMany(models.Comment);
+        // Post.hasMany(models.Like);
+        // Post.hasMany(models.Comment);
     }
     return Post;
 }

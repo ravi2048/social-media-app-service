@@ -43,7 +43,15 @@ const postsController = {
                     {
                         model: db.User,
                         as: "user",
-                    }
+                    },
+                    // {
+                    //     model: db.Like,
+                    //     as: "like"
+                    // },
+                    // {
+                    //     model: db.Comment,
+                    //     as: "comment"
+                    // }
                 ],
                 order: [
                     ['createdAt', 'DESC']
