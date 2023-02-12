@@ -6,6 +6,8 @@ const usersRoutes = require('./routes/users');
 const postsRoutes = require('./routes/posts');
 const likesRoutes = require('./routes/likes');
 const commentsRoutes = require('./routes/comments');
+const relationshipRoutes = require('./routes/relationship');
+
 const config = require('./config');
 require('dotenv').config();
 
@@ -30,6 +32,7 @@ app.use("/users", usersRoutes);
 app.use("/posts", postsRoutes);
 app.use("/likes", likesRoutes);
 app.use("/comments", commentsRoutes);
+app.use("/relations", relationshipRoutes);
 
 const port = config.PORT;
 app.listen(port, () => {
