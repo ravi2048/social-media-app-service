@@ -98,7 +98,37 @@ const postsController = {
                 "error": error.message
             });
         }        
-    }
+    },
+
+    deletePost: async (req, res) => {
+        try {
+            const token = req.cookies.accessToken;
+            let loggedInUserId = null;
+            if(!token) {
+                return res.status(401).json("Not logged in");
+            }
+
+            jwt.verify(token, "secretKey", (err, userInfo) => {
+                if(err) {
+                    return res.status(403).json("Token is not valid");
+                }
+                loggedInUserId = userInfo.id;
+            })
+
+            // if logged in, delete post
+            await db.Post.destroy({
+                where: {
+                    id: req.params.postId
+                }
+            });
+
+            res.status(200).json('Post deleted successfully');
+        } catch (error) {
+            return res.status(500).json({
+                "error": error.message
+            });
+        }        
+    },
 }
 
 module.exports = postsController;

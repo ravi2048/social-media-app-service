@@ -7,5 +7,5 @@ const router = express.Router();
 router.get("/all-posts", postsController.getPosts);
 router.get("/user-posts/:userId", postsController.getUsersPosts);
 router.post("/create", postsController.createPost);
-
+router.delete("/:postId", postsController.deletePost);
 module.exports = router;
