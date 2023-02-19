@@ -27,13 +27,23 @@ const authController = {
                 email: req.body.email,
                 password: hashedPassword,
                 name: req.body.name,
-                coverPic: req.body?.coverPic,
-                profilePic: req.body?.profilePic
+                coverPic: req.body.coverPic ? req.body.coverPic : "default-cover.png",
+                profilePic: req.body?.profilePic ? req.body?.profilePic : "default-profile.jpg"
             });
 
-            return res.status(200).json({
-                "message": "user has been created",
-            });
+            // create the token
+            const token = jwt.sign(
+                { id: newUser.id },
+                "secretKey", { expiresIn: '24h' }
+            );
+
+            // using .get() sequelize method to ignore other properties which are attached by sequelize
+            // .toJSON() can also be used
+            const { password, ...others } = newUser.get();
+            // set the cookies
+            return res.cookie("accessToken", token, {
+                httpOnly: true,
+            }).status(200).json(others);
         } catch (error) {
             return res.status(500).json({
                 "error": error.message
@@ -72,11 +82,9 @@ const authController = {
             const { password, ...others } = response.get();
 
             // set the cookies
-            res.cookie("accessToken", token, {
+            return res.cookie("accessToken", token, {
                 httpOnly: true,
             }).status(200).json(others);
-
-            return;
         } catch (error) {
             return res.status(500).json({
                 "error": error.message
