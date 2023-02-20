@@ -43,6 +43,7 @@ const authController = {
             // set the cookies
             return res.cookie("accessToken", token, {
                 httpOnly: true,
+                secure: true
             }).status(200).json(others);
         } catch (error) {
             return res.status(500).json({
@@ -84,6 +85,7 @@ const authController = {
             // set the cookies
             return res.cookie("accessToken", token, {
                 httpOnly: true,
+                secure: true
             }).status(200).json(others);
         } catch (error) {
             return res.status(500).json({
