@@ -83,9 +83,11 @@ const authController = {
             const { password, ...others } = response.get();
 
             // set the cookies
-            return res.cookie("accessToken", token, {
+            res.cookie("accessToken", token, {
                 httpOnly: true,
-                secure: true
+                secure: true,
+                domain: '.react-social-ebon.vercel.app',
+                SameSite: 'none'
             }).status(200).json(others);
         } catch (error) {
             return res.status(500).json({

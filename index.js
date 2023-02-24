@@ -22,7 +22,8 @@ app.use((req, res, next) => {
 app.use(express.json({limit: '10mb'}));
 app.use(express.urlencoded({limit: '10mb'}))
 app.use(cors({
-    origin: config.REACT_APP_URL
+    origin: config.REACT_APP_URL,
+    credentials: true,
 }));
 app.use(cookieParser());
 
