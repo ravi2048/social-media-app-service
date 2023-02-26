@@ -41,10 +41,14 @@ const authController = {
             // .toJSON() can also be used
             const { password, ...others } = newUser.get();
             // set the cookies
-            return res.cookie("accessToken", token, {
+            res.cookie("accessToken", token, {
                 httpOnly: true,
-                secure: true
-            }).status(200).json(others);
+                secure: true,
+                domain: '.social-media-app-service.onrender.com',
+                sameSite: 'none'
+            });
+            
+            return res.status(200).json(others);
         } catch (error) {
             return res.status(500).json({
                 "error": error.message
@@ -86,9 +90,11 @@ const authController = {
             res.cookie("accessToken", token, {
                 httpOnly: true,
                 secure: true,
-                domain: '.react-social-ebon.vercel.app',
-                SameSite: 'none'
-            }).status(200).json(others);
+                domain: '.social-media-app-service.onrender.com',
+                sameSite: 'none'
+            });
+            
+            return res.status(200).json(others);
         } catch (error) {
             return res.status(500).json({
                 "error": error.message
