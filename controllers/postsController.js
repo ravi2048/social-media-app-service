@@ -37,9 +37,10 @@ const postsController = {
 
             res.status(200).json(allPosts);
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }        
     },
 
@@ -63,15 +64,16 @@ const postsController = {
 
             res.status(200).json(allPosts);
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     },
 
     createPost: async (req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -94,15 +96,16 @@ const postsController = {
 
             res.status(200).json('Post created successfully');
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }        
     },
 
     deletePost: async (req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -124,9 +127,10 @@ const postsController = {
 
             res.status(200).json('Post deleted successfully');
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }        
     },
 }

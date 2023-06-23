@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const relationshipController = {
     addFriend: async(req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -19,22 +19,23 @@ const relationshipController = {
 
             const relationObj = {
                 userId: loggedInUserId,
-                friendId: req.query.friendId
+                friendId: req.body.friendId
             };
 
             await db.Relationship.create(relationObj);
 
             return res.status(200).json(`user ${loggedInUserId} added user ${req.query.friendId} as friend`);
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     },
 
     findRelation: async(req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -42,7 +43,7 @@ const relationshipController = {
 
             jwt.verify(token, "secretKey", (err, userInfo) => {
                 if(err) {
-                    return res.status(403).json("Token is not valid");
+                    return res.status(403).json({msg: "Token is not valid", error: err});
                 }
                 loggedInUserId = userInfo.id;
             })
@@ -55,15 +56,16 @@ const relationshipController = {
             });
             return res.status(200).json(relationInfo);
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     },
 
     deleteFriend: async(req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -77,7 +79,7 @@ const relationshipController = {
             });
 
             const userId = loggedInUserId;
-            const friendId = req.query.friendId;
+            const friendId = req.body.friendId;
 
             await db.Relationship.destroy({
                 where: {
@@ -88,9 +90,10 @@ const relationshipController = {
 
             return res.status(200).json(`user ${loggedInUserId} removed user ${req.query.friendId} as friend`);
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     }
 };
