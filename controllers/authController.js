@@ -41,18 +41,20 @@ const authController = {
             // .toJSON() can also be used
             const { password, ...others } = newUser.get();
             // set the cookies
-            res.cookie("accessToken", token, {
-                httpOnly: true,
-                secure: true,
-                domain: '.social-media-app-service.onrender.com',
-                sameSite: 'none'
-            });
+            // res.cookie("accessToken", token, {
+            //     httpOnly: true,
+            //     secure: true,
+            //     domain: '.social-media-app-service.onrender.com',
+            //     sameSite: 'none'
+            // });
             
-            return res.status(200).json(others);
+            return res.status(200).json({ msg: "user registered in", accessToken: token, userInfo: others});
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
+
         }
     },
 
@@ -87,18 +89,19 @@ const authController = {
             const { password, ...others } = response.get();
 
             // set the cookies
-            res.cookie("accessToken", token, {
-                httpOnly: true,
-                secure: true,
-                domain: '.social-media-app-service.onrender.com',
-                sameSite: 'none'
-            });
+            // res.cookie("accessToken", token, {
+            //     httpOnly: true,
+            //     secure: true,
+            //     domain: '.social-media-app-service.onrender.com',
+            //     sameSite: 'none'
+            // });
             
-            return res.status(200).json(others);
+            return res.status(200).json({ msg: "user logged in", accessToken: token, userInfo: others});
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
 
     },

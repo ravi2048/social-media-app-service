@@ -11,14 +11,15 @@ const likesController = {
             });
             return res.status(200).json(likesData.map(like => like.userId))
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     },
     addLike: async(req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -40,14 +41,15 @@ const likesController = {
 
             return res.status(200).json(`new like has been added to post ${postId} by user ${loggedInUserId}`)
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     },
     deleteLike: async(req, res) => {
         try {
-            const token = req.cookies.accessToken;
+            const token = req.headers["authorization"].split(" ")[1];
             let loggedInUserId = null;
             if(!token) {
                 return res.status(401).json("Not logged in");
@@ -68,9 +70,10 @@ const likesController = {
             });
             return res.status(200).json(`user ${loggedInUserId} Disliked the post`)
         } catch (error) {
-            return res.status(500).json({
-                "error": error.message
-            });
+            // return res.status(500).json({
+            //     "error": error.message
+            // });
+            console.log(`**** something went wrong ***, ${error.message}`);
         }
     }
 }
