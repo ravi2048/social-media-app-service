@@ -10,7 +10,7 @@ const storage = new Storage({
         type: process.env.REACT_APP_GCS_TYPE,
         project_id: process.env.REACT_APP_GCS_PROJECT_ID,
         private_key_id: process.env.REACT_APP_GCS_PRIVATE_KEY_ID,
-        private_key: process.env.REACT_APP_GCS_PRIVATE_KEY,
+        private_key: JSON.parse(process.env.REACT_APP_GCS_PRIVATE_KEY),
         client_email: process.env.REACT_APP_GCS_CLIENT_EMAIL,
         client_id: process.env.REACT_APP_GCS_CLIENT_ID,
         auth_uri: process.env.REACT_APP_GCS_AUTH_URI,
