@@ -4,7 +4,22 @@ const { format } = require("util");
 const { Storage } = require("@google-cloud/storage");
 
 // instantiate an instance of storage
-const storage = new Storage({ keyFilename: "google-cloud-key.json" });
+const storage = new Storage({
+    projectId: process.env.REACT_APP_GCS_PROJECT_ID,
+    credentials: {
+        type: process.env.REACT_APP_GCS_TYPE,
+        project_id: process.env.REACT_APP_GCS_PROJECT_ID,
+        private_key_id: process.env.REACT_APP_GCS_PRIVATE_KEY_ID,
+        private_key: process.env.REACT_APP_GCS_PRIVATE_KEY,
+        client_email: process.env.REACT_APP_GCS_CLIENT_EMAIL,
+        client_id: process.env.REACT_APP_GCS_CLIENT_ID,
+        auth_uri: process.env.REACT_APP_GCS_AUTH_URI,
+        token_uri: process.env.REACT_APP_GCS_TOKEN_URI,
+        auth_provider_x509_cert_url: process.env.REACT_APP_GCS_AUTH_PROVIDER_X509_CERT_URL,
+        client_x509_cert_url: process.env.REACT_APP_GCS_CLIENT_X509_CERT_URL,
+        universe_domain: process.env.REACT_APP_GCS_UNIVERSAL_DOMAIN
+    },
+});
 const bucket = storage.bucket("fb-clone-files");
 
 const fileController = {
