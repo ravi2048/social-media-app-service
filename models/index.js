@@ -18,7 +18,10 @@ if (config.use_env_variable) {
     dialect: config.DB_DIALECT,
     // port: config.PORT,
     pool: {
-
+      max: 5,
+      min: 0,
+      acquire: 30000,  // Maximum time (ms) to try getting a connection before throwing error
+      idle: 20000   // Time (ms) a connection can stay idle before being released
     }
   });
 }
